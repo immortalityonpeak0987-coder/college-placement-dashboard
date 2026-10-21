@@ -1,0 +1,6 @@
+{
+  "name": "Campus Placement Analysis | Mumbai & Pune Colleges",
+  "description": "Data analysis project: cleaning and analysing engineering college placement data with Python and pandas, presented as an interactive dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
