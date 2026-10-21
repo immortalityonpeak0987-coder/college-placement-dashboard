@@ -3,7 +3,7 @@
 End-to-end data analysis project: raw, messy placement files → cleaned dataset → interactive dashboard website.
 Built with **Python (pandas)** for cleaning and analysis, and **HTML/CSS/JavaScript + Chart.js** for the dashboard, hosted on Vercel.
 
-**Live demo:** _add your Vercel URL here_
+**Live demo:** _https://college-placement-dashboard-kdnxnaxen-immortal-silent.vercel.app_
 
 ![Dashboard preview](docs/dashboard-preview.png)
 
