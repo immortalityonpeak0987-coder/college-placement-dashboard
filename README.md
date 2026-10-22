@@ -4,7 +4,7 @@ End-to-end data analytics portfolio project: multi-file raw placement data audit
 
 Built with **Python 3** for data cleaning, algorithmic/rule-based entity resolution, and statistical aggregation, and **HTML5, CSS3, JavaScript, and Chart.js** for the interactive analytics interface.
 
-**Live demo:** [https://college-placement-dashboard-kdnxnaxen-immortal-silent.vercel.app](https://college-placement-dashboard-kdnxnaxen-immortal-silent.vercel.app)
+**Live demo:** [https://college-placement-dashboard.vercel.app/](https://college-placement-dashboard.vercel.app/)
 
 ![Dashboard preview](docs/dashboard-preview.png)
 
