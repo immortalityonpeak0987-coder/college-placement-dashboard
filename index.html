@@ -1,154 +1,1573 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Campus Placement Analysis | Mumbai &amp; Pune Colleges</title>
-<meta name="description" content="Data analysis project: cleaning and analysing engineering college placement data with Python and pandas, presented as an interactive dashboard.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<style>
-:root{--bg:#F3F6FA;--surface:#fff;--ink:#12263A;--muted:#5B6B7C;--line:#DCE3EB;--a:#0F8B8D;--b:#E9A23B;--hero:#12263A;--heroink:#F3F6FA;--chip:rgba(255,255,255,.12)}
-@media (prefers-color-scheme:dark){:root{--bg:#0D1722;--surface:#15222F;--ink:#E8EEF4;--muted:#93A3B3;--line:#27384A;--a:#35B8BA;--b:#F0B358;--hero:#1B2E40}}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.55;padding-bottom:env(safe-area-inset-bottom,0px)}
-a{color:inherit}.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
-header.hero{background:var(--hero);color:var(--heroink);padding:calc(44px + env(safe-area-inset-top,0px)) 0 48px;border-bottom:4px solid var(--b)}
-.hero h1{margin:0 0 10px;font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.1;font-weight:800;max-width:20ch}
-.hero p{margin:0 0 18px;max-width:60ch;opacity:.85;font-size:1.05rem}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}.chip{background:var(--chip);border-radius:99px;padding:4px 12px;font-size:.82rem;font-weight:600}
-.btns{display:flex;flex-wrap:wrap;gap:10px}.btn{display:inline-block;padding:9px 18px;border-radius:8px;font-weight:700;text-decoration:none;background:var(--b);color:#12263A}
-.btn.ghost{background:transparent;color:var(--heroink);border:1.5px solid var(--heroink)}
-.btn:focus-visible,a:focus-visible{outline:3px solid var(--a);outline-offset:2px}
-.by{margin-top:14px;font-size:.9rem;opacity:.8}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:-28px 0 24px}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:0 6px 18px rgba(18,38,58,.08)}
-.kpi b{display:block;font-size:2rem;font-weight:800;color:var(--a)}.kpi span{color:var(--muted);font-size:.88rem}
-h2.sec{font-size:1.4rem;margin:34px 0 4px}.sub{color:var(--muted);margin:0 0 16px;max-width:70ch}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 18px 14px}.card.wide{grid-column:1/-1}
-.card h3{margin:0 0 4px;font-size:1.08rem}.why{margin:0 0 12px;color:var(--muted);font-size:.92rem;max-width:62ch}
-.box{position:relative;height:300px}.wide .box{height:320px}
-.steps{display:grid;gap:10px}.step{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center}
-.step .lbl{font-weight:700;font-size:.9rem}.bar{height:34px;border-radius:6px;background:var(--a);color:#fff;display:flex;align-items:center;padding:0 12px;font-weight:700;white-space:nowrap}
-.step small{display:block;color:var(--muted);font-weight:400}
-.pitch{background:var(--hero);color:var(--heroink);border-radius:14px;padding:26px 24px}
-.pitch h2{margin:0 0 14px;font-size:clamp(1.25rem,3vw,1.7rem);line-height:1.25}
-.pitch ul{margin:0 0 16px;padding-left:20px}.pitch li{margin-bottom:8px}
-.pitch .do{border-left:5px solid var(--b);padding:4px 0 4px 14px;margin:0}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}ul.plain{margin:0;padding-left:20px;color:var(--muted)}
-footer{margin:36px 0 24px;color:var(--muted);font-size:.85rem}
-@media(max-width:760px){.grid,.two{grid-template-columns:1fr}.step{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Campus Placement Intelligence — Mumbai &amp; Pune</title>
+  <meta name="description" content="Interactive data analytics dashboard examining 2,749 engineering college placement and recruiter records across Mumbai, Pune, Navi Mumbai, and Thane (2014–2018)." />
+  <meta property="og:title" content="Campus Placement Intelligence — Mumbai &amp; Pune" />
+  <meta property="og:description" content="Interactive data analytics dashboard examining 2,749 engineering college placement and recruiter records across Mumbai, Pune, Navi Mumbai, and Thane (2014–2018)." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@600;700;800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="assets/chart.umd.min.js"></script>
+  <style>
+    :root,
+    html[data-theme="light"] {
+      --bg: #F6F8FA;
+      --surface: #FFFFFF;
+      --surface-subtle: #F1F5F9;
+      --ink: #0F172A;
+      --ink-secondary: #334155;
+      --muted: #64748B;
+      --line: #E2E8F0;
+      --line-strong: #CBD5E1;
+      --accent: #0D9488;
+      --accent-hover: #0F766E;
+      --accent-soft: rgba(13, 148, 136, 0.10);
+      --amber: #D97706;
+      --amber-soft: rgba(217, 119, 6, 0.10);
+      --amber-border: rgba(217, 119, 6, 0.30);
+      --slate-bar: #94A3B8;
+      --sidebar-w: 256px;
+      --radius: 10px;
+      --radius-sm: 6px;
+    }
+
+    html[data-theme="dark"] {
+      --bg: #0B1120;
+      --surface: #111827;
+      --surface-subtle: #1E293B;
+      --ink: #F1F5F9;
+      --ink-secondary: #CBD5E1;
+      --muted: #94A3B8;
+      --line: #1E293B;
+      --line-strong: #334155;
+      --accent: #2DD4BF;
+      --accent-hover: #14B8A6;
+      --accent-soft: rgba(45, 212, 191, 0.12);
+      --amber: #F59E0B;
+      --amber-soft: rgba(245, 158, 11, 0.12);
+      --amber-border: rgba(245, 158, 11, 0.35);
+      --slate-bar: #475569;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 15px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Public Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.55;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: "Manrope", system-ui, sans-serif;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .font-mono, .num, [data-k] {
+      font-family: "JetBrains Mono", monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button, select, input {
+      font: inherit;
+      color: inherit;
+    }
+
+    button:focus-visible,
+    select:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Layout Shell */
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--surface);
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 40;
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sidebar-brand {
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand-title {
+      font-family: "Manrope", sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      line-height: 1.25;
+      color: var(--ink);
+      display: block;
+    }
+
+    .brand-meta {
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nav-group-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 6px 10px 4px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--ink-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--surface-subtle);
+      color: var(--ink);
+    }
+
+    .nav-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(13, 148, 136, 0.24);
+      font-weight: 600;
+    }
+
+    .nav-btn svg {
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+
+    .sidebar-scope-box {
+      margin: 8px 12px;
+      padding: 12px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      color: var(--ink-secondary);
+    }
+
+    .sidebar-scope-box strong {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .sidebar-footer {
+      padding: 14px 16px;
+      border-top: 1px solid var(--line);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* Main Workspace Content */
+    .workspace {
+      flex: 1;
+      margin-left: var(--sidebar-w);
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Bar Contract */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      cursor: pointer;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.92rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .breadcrumb-root {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .breadcrumb-current {
+      font-family: "Manrope", sans-serif;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .btn-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 13px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-control:hover:not(:disabled) {
+      background: var(--surface-subtle);
+    }
+
+    .btn-control:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FFFFFF;
+    }
+    html[data-theme="dark"] .btn-primary {
+      color: #0B1120;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    /* Global Filter Bar */
+    .filter-panel {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 24px;
+    }
+
+    .filter-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 14px;
+      max-width: 1400px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .filter-label {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .segmented-group {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      background: var(--surface-subtle);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+    }
+
+    .seg-btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--ink-secondary);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.12s ease, color 0.12s ease;
+    }
+
+    .seg-btn:hover {
+      color: var(--ink);
+    }
+
+    .seg-btn.active {
+      background: var(--surface);
+      color: var(--accent);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    }
+
+    .filter-select {
+      height: 34px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 0.82rem;
+      max-width: 260px;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input {
+      height: 34px;
+      padding: 0 28px 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 0.82rem;
+      width: 210px;
+    }
+
+    .clear-search-btn {
+      position: absolute;
+      right: 6px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 2px 4px;
+    }
+
+    .active-filters-strip {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.8rem;
+    }
+
+    .active-tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-tag-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      border: 1px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Main Content Container */
+    .content-wrap {
+      padding: 24px;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Section Header Banner */
+    .page-intro {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .page-intro h1 {
+      font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+      font-weight: 800;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+
+    .page-intro p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      max-width: 72ch;
+    }
+
+    /* KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+
+    .kpi-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .kpi-value {
+      font-family: "JetBrains Mono", monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .kpi-sub {
+      margin-top: 6px;
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* Analytical Cards & Grids */
+    .charts-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .panel-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      min-width: 0;
+    }
+
+    .panel-card.full-span {
+      grid-column: 1 / -1;
+    }
+
+    .card-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .card-subtitle {
+      margin: 0 0 14px;
+      font-size: 0.83rem;
+      color: var(--muted);
+      max-width: 75ch;
+    }
+
+    .chart-box {
+      position: relative;
+      height: 300px;
+      width: 100%;
+    }
+
+    .chart-box.tall {
+      height: 330px;
+    }
+
+    /* Methodological Callout Box (No thick left border — full 1px subtle border) */
+    .method-note {
+      background: var(--amber-soft);
+      border: 1px solid var(--amber-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 0.83rem;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .method-note strong {
+      color: var(--amber);
+      font-weight: 700;
+    }
+
+    /* Observations Grid */
+    .obs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .obs-item {
+      padding: 14px 16px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+    }
+
+    .obs-label {
+      font-family: "Manrope", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .obs-text {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+
+    /* Data Tables */
+    .table-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      text-align: left;
+    }
+
+    table.data-table th,
+    table.data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+
+    table.data-table th {
+      background: var(--surface-subtle);
+      color: var(--ink-secondary);
+      font-weight: 600;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    table.data-table th[data-sort-col] {
+      cursor: pointer;
+    }
+    table.data-table th[data-sort-col]:hover {
+      color: var(--ink);
+    }
+    table.data-table th.sorted {
+      color: var(--accent);
+    }
+
+    table.data-table th.num,
+    table.data-table td.num {
+      text-align: right;
+      font-family: "JetBrains Mono", monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    table.data-table tbody tr:hover {
+      background: var(--surface-subtle);
+    }
+
+    .row-expand-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      background: transparent;
+      padding: 0;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .exp-chevron {
+      color: var(--accent);
+      font-family: monospace;
+      width: 12px;
+      display: inline-block;
+    }
+
+    .company-detail-row td {
+      background: var(--surface-subtle);
+      padding: 12px 18px;
+    }
+
+    .company-detail-box {
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      padding: 12px 14px;
+    }
+
+    .company-detail-hdr {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+    }
+
+    .table-scroll-mini {
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    table.mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.79rem;
+    }
+    table.mini-table th,
+    table.mini-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pagination-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* Data Quality Funnel */
+    .funnel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .funnel-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .funnel-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .funnel-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .funnel-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .funnel-bar-wrap {
+      background: var(--surface-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .funnel-bar {
+      height: 34px;
+      background: var(--accent);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    html[data-theme="dark"] .funnel-bar {
+      color: #0B1120;
+    }
+
+    /* Empty State */
+    .empty-state-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 48px 24px;
+      text-align: center;
+      margin: 24px 0;
+    }
+
+    .empty-state-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .empty-state-card p {
+      color: var(--muted);
+      max-width: 48ch;
+      margin: 0 auto 18px;
+      font-size: 0.9rem;
+    }
+
+    /* Utility Classes */
+    .font-semibold { font-weight: 600; }
+    .accent-text { color: var(--accent); }
+    .caution-inline { color: var(--amber); font-size: 0.76rem; font-weight: 500; }
+    .muted-inline { color: var(--muted); font-size: 0.78rem; }
+    .muted-cell { color: var(--muted); font-style: italic; }
+
+    .mobile-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      z-index: 35;
+    }
+
+    footer.workspace-footer {
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.79rem;
+      color: var(--muted);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1120px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .obs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      body.mobile-nav-open .sidebar {
+        transform: translateX(0);
+      }
+      body.mobile-nav-open .mobile-backdrop {
+        display: block;
+      }
+      .workspace {
+        margin-left: 0;
+      }
+      .mobile-menu-btn {
+        display: inline-flex;
+      }
+      .charts-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .funnel-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .topbar {
+        padding: 10px 14px;
+      }
+      .filter-panel {
+        padding: 12px 14px;
+      }
+      .content-wrap {
+        padding: 16px 14px;
+      }
+      .search-input, .filter-select {
+        width: 100%;
+        max-width: none;
+      }
+      .filter-group {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .sidebar { transition: none; }
+    }
+  </style>
 </head>
 <body>
-<header class="hero"><div class="wrap">
-  <h1>Campus Placement Analysis: Mumbai &amp; Pune</h1>
-  <p>I cleaned a messy, multi-file placement dataset with Python and pandas, then turned it into three questions a student can act on: what packages look like, who recruits, and how placements trend.</p>
-  <div class="chips"><span class="chip">Python</span><span class="chip">pandas</span><span class="chip">Data cleaning</span><span class="chip">Chart.js</span><span class="chip">Vercel</span></div>
-  <div class="btns" id="links"></div><div class="by" id="by"></div>
-</div></header>
+  <div class="app-shell">
+    <div class="mobile-backdrop" id="mobileNavBackdrop" aria-hidden="true"></div>
 
-<main class="wrap">
-  <section class="kpis" aria-label="Key numbers">
-    <div class="kpi"><b data-k="records">0</b><span>placement records</span></div>
-    <div class="kpi"><b data-k="companies">0</b><span>distinct companies</span></div>
-    <div class="kpi"><b data-k="colleges">0</b><span>colleges</span></div>
-    <div class="kpi"><b data-k="packages">0</b><span>records with a package</span></div>
-  </section>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" aria-label="Primary Analytics Navigation">
+      <div class="sidebar-brand">
+        <span class="brand-title">Campus Placement Intelligence</span>
+        <div class="brand-meta">Mumbai &amp; Pune · 2014–2018</div>
+      </div>
 
-  <h2 class="sec">What the data says</h2>
-  <p class="sub">Three charts, each answering one question.</p>
-  <section class="grid">
-    <article class="card"><h3>What does a typical package look like?</h3><p class="why" id="t1"></p>
-      <div class="box"><canvas id="c1" role="img" aria-label="Average and median package by region"></canvas></div></article>
-    <article class="card"><h3>Which companies keep coming back?</h3><p class="why" id="t2"></p>
-      <div class="box"><canvas id="c2" role="img" aria-label="Top 10 recurring companies"></canvas></div></article>
-    <article class="card wide"><h3>How have placements changed year over year?</h3><p class="why" id="t3"></p>
-      <div class="box"><canvas id="c3" role="img" aria-label="Placements per year with number of colleges reporting"></canvas></div></article>
-  </section>
+      <nav class="sidebar-nav">
+        <div class="nav-group-label">Analytical Views</div>
+        <button type="button" class="nav-btn active" data-nav-section="overview" aria-current="page">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>1. Overview</span>
+        </button>
+        <button type="button" class="nav-btn" data-nav-section="salary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>2. Salary Insights</span>
+        </button>
+        <button type="button" class="nav-btn" data-nav-section="recruiters">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+          <span>3. Recruiter Analysis</span>
+        </button>
+        <button type="button" class="nav-btn" data-nav-section="trends">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>4. Yearly Trends</span>
+        </button>
+        <button type="button" class="nav-btn" data-nav-section="quality">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>5. Data Quality &amp; Method</span>
+        </button>
+      </nav>
 
-  <h2 class="sec">How the data was cleaned</h2>
-  <p class="sub">Seven raw CSV files, one master list. Row counts at each stage:</p>
-  <section class="card"><div class="steps" id="steps"></div></section>
+      <div class="sidebar-scope-box">
+        <strong>Methodological Scope</strong>
+        <span>Historical sample covering 2,749 cleaned placement/recruiter records across 27 colleges (2014–2018). Package data is present in 399 records (14.5%).</span>
+      </div>
 
-  <h2 class="sec">The takeaway for a junior student</h2>
-  <section class="pitch">
-    <h2>Before chasing a big package, prepare for the companies that show up at almost every college.</h2>
-    <ul id="pts"></ul>
-    <p class="do"><b>What to do:</b> Pick the top 5 recurring companies, study their past interview patterns (aptitude, basic coding, communication), and start a little daily practice early in your degree. That preparation pays off in almost every college's placement drive.</p>
-  </section>
+      <div class="sidebar-footer" id="sidebarAuthorLinks">
+        <span>B.Tech Data Analytics Portfolio</span>
+      </div>
+    </aside>
 
-  <h2 class="sec">Method and limitations</h2>
-  <section class="two">
-    <div class="card"><h3>Method</h3><ul class="plain">
-      <li>Removed repeated header rows and duplicate records.</li>
-      <li>Normalised company, college and region text.</li>
-      <li>Converted packages (yearly and monthly) to LPA.</li>
-      <li>Merged inconsistent company spellings after manual review.</li></ul></div>
-    <div class="card"><h3>Limitations</h3><ul class="plain" id="lim"></ul></div>
-  </section>
-  <footer>Sample dataset used for demonstration. Source code and full pipeline are in the repository.</footer>
-</main>
+    <!-- Main Workspace -->
+    <div class="workspace">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="breadcrumb">
+            <span class="breadcrumb-root">Placement Analytics (2014–2018)</span>
+            <span aria-hidden="true">/</span>
+            <span class="breadcrumb-current" id="activeSectionTitle">Executive Overview</span>
+          </div>
+        </div>
 
-<script src="assets/config.js"></script>
-<script src="assets/data.js"></script>
-<script>
-const D=window.DASHBOARD_DATA,S=window.SITE||{},$=id=>document.getElementById(id);
-const fmt=n=>n.toLocaleString('en-IN'),css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+        <div class="topbar-actions">
+          <button type="button" class="btn-control" id="themeToggleBtn" aria-label="Switch color theme">
+            <span>Dark Theme</span>
+          </button>
+          <button type="button" class="btn-control btn-primary" id="exportFilteredCsvBtn" title="Download currently filtered placement records as CSV">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export Filtered CSV</span>
+          </button>
+        </div>
+      </header>
 
-// header links
-if(S.github)$('links').insertAdjacentHTML('beforeend',`<a class="btn" href="${S.github}" target="_blank" rel="noopener">View code on GitHub</a>`);
-if(S.linkedin)$('links').insertAdjacentHTML('beforeend',`<a class="btn ghost" href="${S.linkedin}" target="_blank" rel="noopener">LinkedIn</a>`);
-if(S.author)$('by').textContent='Built by '+S.author;
+      <!-- Global Filter Bar -->
+      <section class="filter-panel" aria-label="Global Dataset Filters">
+        <div class="filter-grid">
+          <div class="filter-group">
+            <span class="filter-label">Year (Multi-select)</span>
+            <div class="segmented-group" role="group" aria-label="Filter by Year">
+              <button type="button" class="seg-btn active" data-filter-year="ALL">All</button>
+              <button type="button" class="seg-btn num" data-filter-year="2014">2014</button>
+              <button type="button" class="seg-btn num" data-filter-year="2015">2015</button>
+              <button type="button" class="seg-btn num" data-filter-year="2016">2016</button>
+              <button type="button" class="seg-btn num" data-filter-year="2017">2017</button>
+              <button type="button" class="seg-btn num" data-filter-year="2018">2018</button>
+            </div>
+          </div>
 
-// KPI count-up (instant if reduced motion)
-const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-document.querySelectorAll('[data-k]').forEach(el=>{const to=D.kpis[el.dataset.k],t0=performance.now();
-  const tick=t=>{const p=calm?1:Math.min((t-t0)/900,1);el.textContent=fmt(Math.round(to*p));if(p<1)requestAnimationFrame(tick)};requestAnimationFrame(tick)});
+          <div class="filter-group">
+            <span class="filter-label">Region (Multi-select)</span>
+            <div class="segmented-group" role="group" aria-label="Filter by Region">
+              <button type="button" class="seg-btn active" data-filter-region="ALL">All</button>
+              <button type="button" class="seg-btn" data-filter-region="MUMBAI">Mumbai</button>
+              <button type="button" class="seg-btn" data-filter-region="PUNE">Pune</button>
+              <button type="button" class="seg-btn" data-filter-region="NAVI MUMBAI">Navi Mumbai</button>
+              <button type="button" class="seg-btn" data-filter-region="THANE">Thane</button>
+            </div>
+          </div>
 
-// insights generated from the data
-const R=D.regions,C=D.companies,Y=D.years,top5=C.slice(0,5),meds=R.map(r=>r.median),first=Y[0],last=Y[Y.length-1];
-const topR=R[0],cmin=Math.min(...top5.map(c=>c.colleges)),cmax=Math.max(...top5.map(c=>c.colleges));
-$('t1').textContent=`${topR.name} has the highest average (${topR.avg.toFixed(1)} LPA) but its typical (median) package is ${topR.median.toFixed(1)} LPA. Across regions, medians range from ${Math.min(...meds).toFixed(1)} to ${Math.max(...meds).toFixed(1)} LPA.`;
-$('t2').textContent=`${top5.map(c=>c.name).join(', ')} are the five most frequent recruiters, each seen at ${cmin} to ${cmax} different colleges.`;
-$('t3').textContent=`Placements grow from ${fmt(first.placements)} (${first.year}) to ${fmt(last.placements)} (${last.year}), but colleges reporting data grow from ${first.colleges} to ${last.colleges}. Most of the jump reflects coverage, not real growth.`;
-$('pts').innerHTML=[
- `<b>Packages:</b> averages are pulled up by a few high packages, so plan around the typical ${Math.min(...meds).toFixed(1)} to ${Math.max(...meds).toFixed(1)} LPA range.`,
- `<b>Companies:</b> ${top5[0].name}, ${top5[1].name} and ${top5[2].name} recruit across many colleges, year after year.`,
- `<b>Trend:</b> the data shows more colleges reporting, not proof that placements are rising, so don't assume competition is easing.`].map(x=>`<li>${x}</li>`).join('');
+          <div class="filter-group">
+            <label class="filter-label" for="filterCollegeSelect">Engineering College</label>
+            <select id="filterCollegeSelect" class="filter-select">
+              <option value="ALL">All 27 Engineering Colleges</option>
+            </select>
+          </div>
 
-// cleaning funnel
-const P=D.pipeline,steps=[
- ['Raw master list',P.raw,'Repeated header rows and duplicate records present'],
- ['After cleaning',P.clean,`${fmt(P.raw-P.clean)} header-junk and duplicate rows removed`],
- ['After name merge',P.final,`${fmt(P.clean-P.final)} more duplicates after company names were standardised`]];
-$('steps').innerHTML=steps.map(s=>`<div class="step"><div class="lbl">${s[0]}<small>${s[2]}</small></div><div class="bar" style="width:${Math.max(s[1]/P.raw*100,18)}%">${fmt(s[1])} rows</div></div>`).join('');
-$('lim').innerHTML=[`Package data exists for only ${fmt(D.kpis.packages)} of ${fmt(D.kpis.records)} records, so package averages are less reliable.`,
- 'The dataset has no branch column, so results are by region and college instead.','Year-over-year counts are driven by the number of colleges reporting.'].map(x=>`<li>${x}</li>`).join('');
+          <div class="filter-group">
+            <label class="filter-label" for="globalSearchInput">Company / Keyword Search</label>
+            <div class="search-input-wrap">
+              <input type="search" id="globalSearchInput" class="search-input" placeholder="e.g. Morgan Stanley, TCS..." autocomplete="off" />
+              <button type="button" id="clearGlobalSearchBtn" class="clear-search-btn" hidden aria-label="Clear search">×</button>
+            </div>
+          </div>
 
-// charts
-const labels={id:'labels',afterDatasetsDraw(ch,_,o){if(!o.on)return;const c=ch.ctx;c.save();c.fillStyle=css('--ink');c.font='600 11px Manrope,sans-serif';c.textBaseline='middle';
- ch.data.datasets.forEach((d,i)=>ch.getDatasetMeta(i).data.forEach((b,j)=>{const t=o.fmt(d.data[j]);
-  if(ch.options.indexAxis==='y'){c.textAlign='left';c.fillText(t,b.x+5,b.y)}else{c.textAlign='center';c.fillText(t,b.x,b.y-9)}}));c.restore()}};
-let charts=[];
-function build(){charts.forEach(c=>c.destroy());charts=[];
- const ink=css('--ink'),mut=css('--muted'),line=css('--line'),A=css('--a'),B=css('--b');
- Chart.defaults.font.family='Manrope,sans-serif';Chart.defaults.color=mut;
- const ax=(x={})=>({grid:{color:line},border:{display:false},ticks:{color:mut},...x}),base={responsive:true,maintainAspectRatio:false};
- charts.push(new Chart($('c1'),{type:'bar',data:{labels:R.map(r=>r.name),datasets:[
-  {label:'Average',data:R.map(r=>r.avg),backgroundColor:A,borderRadius:4},{label:'Median (typical)',data:R.map(r=>r.median),backgroundColor:B,borderRadius:4}]},
-  options:{...base,indexAxis:'y',layout:{padding:{right:34}},scales:{x:ax({title:{display:true,text:'Package (LPA)',color:mut}}),y:ax({grid:{display:false},ticks:{color:ink}})},
-  plugins:{legend:{position:'bottom',labels:{color:ink,boxWidth:12}},labels:{on:true,fmt:v=>v.toFixed(1)},tooltip:{callbacks:{afterBody:i=>'Records with package: '+R[i[0].dataIndex].n}}}},plugins:[labels]}));
- charts.push(new Chart($('c2'),{type:'bar',data:{labels:C.map(c=>c.name),datasets:[{label:'Placement records',data:C.map(c=>c.records),backgroundColor:A,borderRadius:4}]},
-  options:{...base,indexAxis:'y',layout:{padding:{right:40}},scales:{x:ax({title:{display:true,text:'Placement records',color:mut}}),y:ax({grid:{display:false},ticks:{color:ink}})},
-  plugins:{legend:{display:false},labels:{on:true,fmt:v=>v},tooltip:{callbacks:{afterLabel:i=>'Seen at '+C[i.dataIndex].colleges+' colleges'}}}},plugins:[labels]}));
- charts.push(new Chart($('c3'),{type:'bar',data:{labels:Y.map(r=>[String(r.year),r.colleges+' colleges in data']),datasets:[{label:'Placements',data:Y.map(r=>r.placements),backgroundColor:Y.map((r,i)=>i===Y.length-1?A:line),borderRadius:4,maxBarThickness:90}]},
-  options:{...base,layout:{padding:{top:18}},scales:{y:ax({title:{display:true,text:'Placements',color:mut},beginAtZero:true}),x:ax({grid:{display:false},ticks:{color:ink}})},
-  plugins:{legend:{display:false},labels:{on:true,fmt:v=>fmt(v)}}},plugins:[labels]}));}
-build();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',build);
-</script>
+          <div class="filter-group">
+            <span class="filter-label">Salary Coverage</span>
+            <button type="button" id="filterPkgOnlyBtn" class="btn-control" aria-pressed="false">
+              <span>With Package Only</span>
+            </button>
+          </div>
+
+          <div class="filter-group">
+            <span class="filter-label">&nbsp;</span>
+            <button type="button" id="resetFiltersBtn" class="btn-control" data-action="reset-filters" disabled>
+              <span>Reset Filters</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="active-filters-strip" id="activeFiltersBar">
+          <div class="active-tags-wrap" id="activeFilterTags">
+            <span class="muted-inline">No active filters applied — displaying full canonical dataset.</span>
+          </div>
+          <div class="font-mono muted-inline" id="filteredStatusText">Showing all 2,749 canonical records · 2014–2018</div>
+        </div>
+      </section>
+
+      <!-- Main Viewport -->
+      <main class="content-wrap">
+        <!-- Global KPI Cards -->
+        <section class="kpi-grid" aria-label="Principal Dataset Metrics">
+          <div class="kpi-card">
+            <div class="kpi-label">A. Total Placement Records</div>
+            <div class="kpi-value" id="kpiRecordsVal">2,749</div>
+            <div class="kpi-sub" id="kpiRecordsSub">Placement / recruiter records (not unique student count)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">B. Distinct Companies</div>
+            <div class="kpi-value" id="kpiCompaniesVal">1,753</div>
+            <div class="kpi-sub" id="kpiCompaniesSub">Unique standardized company names in selection</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">C. Distinct Colleges</div>
+            <div class="kpi-value" id="kpiCollegesVal">27</div>
+            <div class="kpi-sub" id="kpiCollegesSub">Across 4 regions in Mumbai &amp; Pune</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">D. Records with Package Data</div>
+            <div class="kpi-value" id="kpiPackagesVal">399 (14.5%)</div>
+            <div class="kpi-sub" id="kpiPackagesSub">Median 4.83 LPA · Mean 6.45 LPA · 2,350 missing</div>
+          </div>
+        </section>
+
+        <!-- Empty Filter Result State -->
+        <section class="empty-state-card" id="globalEmptyState" hidden>
+          <h3>No Placement Records Match Your Active Filters</h3>
+          <p>The current combination of year, region, college, or company search returned zero records. Clear one or more filters to restore data visibility.</p>
+          <button type="button" class="btn-control btn-primary" data-action="reset-filters">Reset All Filters</button>
+        </section>
+
+        <div id="mainPanelsContainer">
+          <!-- SECTION 1: OVERVIEW -->
+          <section data-view-panel="overview" aria-label="Overview Dashboard">
+            <div class="page-intro">
+              <div>
+                <h1>Campus Placement Intelligence: Mumbai &amp; Pune</h1>
+                <p>Reproducible analysis of 2,749 cleaned engineering placement/recruiter records from 27 colleges (2014–2018), examining regional compensation benchmarks, recurring recruiters, and multi-year reporting patterns.</p>
+              </div>
+            </div>
+
+            <div class="method-note">
+              <strong>Analytical Interpretation Note:</strong> Each row in the canonical dataset (<code>data/processed/placements_final.csv</code>) represents a verified college–company–year placement record, not an individual student headcount. Package statistics are computed strictly from the <strong id="overviewNotePkgStats">399 records (14.51%)</strong> containing valid numeric LPA values; missing salaries are never converted to zero.
+            </div>
+
+            <div class="charts-grid-2">
+              <!-- Chart 1: Regional Salary Comparison -->
+              <article class="panel-card">
+                <div class="card-header-row">
+                  <h2 class="card-title">Regional Salary Comparison (Average vs Median LPA)</h2>
+                </div>
+                <p class="card-subtitle">Comparison of arithmetic mean and typical (median) package in Lakhs Per Annum (LPA) across valid package observations. High upper-tail offers pull averages above medians.</p>
+                <div class="chart-box">
+                  <canvas id="chartOverviewRegion" role="img" aria-label="Horizontal grouped bar chart of average and median package in LPA by region"></canvas>
+                </div>
+              </article>
+
+              <!-- Chart 2: Top 10 Recruiting Companies -->
+              <article class="panel-card">
+                <div class="card-header-row">
+                  <h2 class="card-title">Top 10 Recruiting Companies</h2>
+                  <div class="segmented-group" role="group" aria-label="Select ranking criterion">
+                    <button type="button" class="seg-btn active" data-overview-rank="records">By Record Count</button>
+                    <button type="button" class="seg-btn" data-overview-rank="colleges">By Distinct Colleges</button>
+                  </div>
+                </div>
+                <p class="card-subtitle" id="overviewRankSubtitle">Ranked by total placement/recruiter records across the selected filter view (ties broken by distinct colleges).</p>
+                <div class="chart-box">
+                  <canvas id="chartOverviewCompanies" role="img" aria-label="Horizontal bar chart of top 10 recurring recruiting companies"></canvas>
+                </div>
+              </article>
+
+              <!-- Chart 3: Historical Reporting Trend -->
+              <article class="panel-card">
+                <div class="card-header-row">
+                  <h2 class="card-title">Historical Reporting Trend (2014–2018)</h2>
+                </div>
+                <p class="card-subtitle">Observed placement records (bars, left axis) plotted alongside distinct reporting colleges (line, right axis). The 2018 surge coincides with 24 colleges reporting vs 2 in 2014.</p>
+                <div class="chart-box">
+                  <canvas id="chartOverviewTrend" role="img" aria-label="Historical records and reporting colleges from 2014 to 2018"></canvas>
+                </div>
+              </article>
+
+              <!-- Chart 4: Package-Data Coverage -->
+              <article class="panel-card">
+                <div class="card-header-row">
+                  <h2 class="card-title">Package-Data Coverage by Region</h2>
+                </div>
+                <p class="card-subtitle">Proportion of placement records disclosing verified salary figures vs unreported package records across regions.</p>
+                <div class="chart-box">
+                  <canvas id="chartOverviewCoverage" role="img" aria-label="Stacked horizontal bar chart comparing records with and without package data by region"></canvas>
+                </div>
+              </article>
+
+              <!-- Calculated Descriptive Observations -->
+              <article class="panel-card full-span">
+                <div class="card-header-row">
+                  <h2 class="card-title">Calculated Descriptive Observations (Live Filtered View)</h2>
+                  <span class="muted-inline">Descriptive statistics derived from active selection · Non-causal</span>
+                </div>
+                <p class="card-subtitle">Key takeaways recalculated automatically from the active filter state.</p>
+                <div class="obs-grid" id="overviewObservationsList"></div>
+              </article>
+            </div>
+          </section>
+
+          <!-- SECTION 2: SALARY INSIGHTS -->
+          <section data-view-panel="salary" hidden aria-label="Salary Insights">
+            <div class="page-intro">
+              <div>
+                <h1>Salary Insights &amp; Regional Compensation Distribution</h1>
+                <p>Detailed analysis of reported annual packages (LPA) sourced from explicit-unit records in <code>variation_3.csv</code>. Missing package values are excluded from all statistical calculations.</p>
+              </div>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card">
+                <div class="kpi-label">Typical Package (Median)</div>
+                <div class="kpi-value" id="salKpiMedian">4.83 LPA</div>
+                <div class="kpi-sub" id="salKpiMedianSub">50th percentile across valid observations</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">Average Package (Mean)</div>
+                <div class="kpi-value" id="salKpiMean">6.45 LPA</div>
+                <div class="kpi-sub" id="salKpiMeanSub">Pulled upward by high-package outliers</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">Observed Package Range</div>
+                <div class="kpi-value" id="salKpiRange">0.96 – 29.95 LPA</div>
+                <div class="kpi-sub" id="salKpiRangeSub">Interquartile range (Q1–Q3)</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">Salary Sample Coverage</div>
+                <div class="kpi-value" id="salKpiCoverage">14.5% (399 / 2,749)</div>
+                <div class="kpi-sub" id="salKpiCoverageSub">2,350 records have no reported salary</div>
+              </div>
+            </div>
+
+            <div class="method-note">
+              <strong>Why Median vs Average Matters:</strong> In placement datasets, a small number of high-compensation offers (such as ₹29.95 LPA at NVIDIA or ₹18.02 LPA at Symantec/Morgan Stanley) pull the arithmetic mean upward. The <strong>median (typical observation)</strong> and <strong>interquartile range (Q1–Q3)</strong> provide a more realistic benchmark of central tendency without implying a guaranteed individual student offer.
+            </div>
+
+            <div class="charts-grid-2">
+              <article class="panel-card">
+                <div class="card-header-row">
+                  <h2 class="card-title">Package Distribution Across LPA Brackets</h2>
+                </div>
+                <p class="card-subtitle">Frequency distribution of valid numeric package records across six annual compensation brackets.</p>
+                <div class="chart-box">
+                  <canvas id="chartSalaryHistogram" role="img" aria-label="Histogram of package distribution in LPA brackets"></canvas>
+                </div>
+              </article>
+
+              <article class="panel-card">
+                <div class="card-header-row">
+                  <h2 class="card-title">Regional Quartiles, Median &amp; Mean Comparison</h2>
+                </div>
+                <p class="card-subtitle">Comparison of 25th percentile (Q1), Median, Mean, and 75th percentile (Q3) package in LPA by region.</p>
+                <div class="chart-box">
+                  <canvas id="chartSalaryRegionalDetail" role="img" aria-label="Regional quartiles, median and mean salary comparison"></canvas>
+                </div>
+              </article>
+            </div>
+
+            <!-- Regional Salary Summary Table -->
+            <article class="panel-card" style="margin-bottom: 20px;">
+              <div class="card-header-row">
+                <h2 class="card-title">Regional Salary &amp; Coverage Summary Table</h2>
+              </div>
+              <p class="card-subtitle">Complete regional breakdown showing total placement records, valid salary observations (n), coverage rate, median, mean, interquartile range, and min/max bounds.</p>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Region</th>
+                      <th class="num">Total Records</th>
+                      <th class="num">Valid Package Records (Coverage)</th>
+                      <th class="num">Median (Typical)</th>
+                      <th class="num">Average (Mean)</th>
+                      <th class="num">IQR (Q1 – Q3)</th>
+                      <th class="num">Min Observed</th>
+                      <th class="num">Max Observed</th>
+                    </tr>
+                  </thead>
+                  <tbody id="salaryRegionalTableBody"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <!-- College-Level Salary Summary Table -->
+            <article class="panel-card">
+              <div class="table-toolbar">
+                <div>
+                  <h2 class="card-title">College-Level Package Coverage &amp; Benchmarks</h2>
+                  <p class="card-subtitle" style="margin-bottom:0;">Breakdown across all represented engineering colleges in the current filter selection.</p>
+                </div>
+                <div class="filter-group">
+                  <label class="filter-label" for="collegeSalarySortSelect">Sort Colleges By</label>
+                  <select id="collegeSalarySortSelect" class="filter-select">
+                    <option value="median">Median Package (High → Low)</option>
+                    <option value="avg">Average Package (High → Low)</option>
+                    <option value="pkgCount">Valid Package Count (High → Low)</option>
+                    <option value="totalRecords">Total Placement Records (High → Low)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Engineering College</th>
+                      <th>Region</th>
+                      <th class="num">Total Records</th>
+                      <th class="num">With Package (Coverage)</th>
+                      <th class="num">Median Package</th>
+                      <th class="num">Average Package</th>
+                      <th class="num">Observed Min – Max</th>
+                    </tr>
+                  </thead>
+                  <tbody id="salaryCollegeTableBody"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+
+          <!-- SECTION 3: RECRUITER ANALYSIS -->
+          <section data-view-panel="recruiters" hidden aria-label="Recruiter Analysis">
+            <div class="page-intro">
+              <div>
+                <h1>Recruiter Footprint &amp; Company Analysis</h1>
+                <p>Explore all canonical recruiting companies standardized from raw placement records. Click any company row in the directory below to inspect its exact campus drive records by college and year.</p>
+              </div>
+              <button type="button" class="btn-control" id="exportRecruiterSummaryBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Export Recruiter Summary CSV</span>
+              </button>
+            </div>
+
+            <article class="panel-card" style="margin-bottom: 20px;">
+              <div class="card-header-row">
+                <h2 class="card-title">Top 10 Recurring Companies: Record Count vs College Footprint</h2>
+                <div class="segmented-group" role="group" aria-label="Select top recruiter ranking metric">
+                  <button type="button" class="seg-btn active" data-recruiter-rank="records">Rank by Record Count</button>
+                  <button type="button" class="seg-btn" data-recruiter-rank="colleges">Rank by Distinct Colleges</button>
+                </div>
+              </div>
+              <p class="card-subtitle">Comparing total placement records against the number of distinct engineering colleges where each recruiter appeared. Higher record count indicates recurring campus presence across years/colleges, not total student headcount hired.</p>
+              <div class="chart-box tall">
+                <canvas id="chartRecruiterTop" role="img" aria-label="Grouped horizontal bar chart of top 10 companies comparing record count and distinct colleges"></canvas>
+              </div>
+            </article>
+
+            <article class="panel-card">
+              <div class="table-toolbar">
+                <div>
+                  <h2 class="card-title">Searchable &amp; Sortable Company Directory</h2>
+                  <p class="card-subtitle" style="margin-bottom:0;">Click any column header to sort, or click a company name to expand its college-by-college placement records.</p>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;">
+                  <div class="filter-group">
+                    <label class="filter-label" for="recruiterTableSearchInput">Filter Table by Company or College</label>
+                    <input type="search" id="recruiterTableSearchInput" class="search-input" placeholder="Search directory..." autocomplete="off" />
+                  </div>
+                  <div class="filter-group">
+                    <label class="filter-label" for="recruiterPageSizeSelect">Rows per page</label>
+                    <select id="recruiterPageSizeSelect" class="filter-select" style="width:90px;">
+                      <option value="15">15</option>
+                      <option value="30">30</option>
+                      <option value="50">50</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th data-sort-col="name">Canonical Company Name <span class="sort-ind">↕</span></th>
+                      <th class="num sorted" data-sort-col="records">Record Count <span class="sort-ind">↓</span></th>
+                      <th class="num" data-sort-col="colleges">Colleges Represented <span class="sort-ind">↕</span></th>
+                      <th>Regions</th>
+                      <th class="num" data-sort-col="yearsSpan">Active Years <span class="sort-ind">↕</span></th>
+                      <th class="num" data-sort-col="avgPkg">Median Package (LPA) <span class="sort-ind">↕</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="recruiterTableBody"></tbody>
+                </table>
+              </div>
+
+              <div class="pagination-bar">
+                <div id="recruiterPageInfo" class="font-mono">Showing 1–15 of 1,753 companies</div>
+                <div style="display:flex;gap:8px;">
+                  <button type="button" class="btn-control" id="recruiterPrevPage">Previous</button>
+                  <button type="button" class="btn-control" id="recruiterNextPage">Next</button>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <!-- SECTION 4: YEARLY TRENDS -->
+          <section data-view-panel="trends" hidden aria-label="Yearly Trends">
+            <div class="page-intro">
+              <div>
+                <h1>Historical Reporting Trends (2014–2018)</h1>
+                <p>Longitudinal breakdown of placement records, participating engineering colleges, regional representation, and salary disclosure rates from 2014 to 2018.</p>
+              </div>
+            </div>
+
+            <div class="method-note">
+              <strong>Methodological Warning on 2018 Volume:</strong> Observed placement records rise from <strong>21 in 2014</strong> to <strong>1,958 in 2018</strong> (71.2% of the dataset). However, the number of colleges reporting data in the sample simultaneously expands from <strong>2 colleges in 2014</strong> to <strong>24 colleges in 2018</strong>. Therefore, the surge in record counts primarily reflects broader institutional reporting coverage in 2018 rather than verified year-over-year hiring growth.
+            </div>
+
+            <div class="charts-grid-2">
+              <article class="panel-card">
+                <div class="card-header-row">
+                  <h2 class="card-title">Observed Placement Records by Year (2014–2018)</h2>
+                </div>
+                <p class="card-subtitle">Total deduplicated placement/recruiter records recorded in each calendar year.</p>
+                <div class="chart-box">
+                  <canvas id="chartTrendsRecords" role="img" aria-label="Bar chart of placement records by year"></canvas>
+                </div>
+              </article>
+
+              <article class="panel-card">
+                <div class="card-header-row">
+                  <h2 class="card-title">Institutional &amp; Regional Coverage by Year</h2>
+                </div>
+                <p class="card-subtitle">Number of distinct reporting engineering colleges (out of 27) and regions (out of 4) represented each year.</p>
+                <div class="chart-box">
+                  <canvas id="chartTrendsColleges" role="img" aria-label="Grouped bar chart of distinct colleges and regions by year"></canvas>
+                </div>
+              </article>
+            </div>
+
+            <article class="panel-card">
+              <div class="card-header-row">
+                <h2 class="card-title">Year-by-Year Analytical Reconciliation Table</h2>
+              </div>
+              <p class="card-subtitle">Annual metrics calculated from the active filter selection. Years with fewer than 10 salary observations are marked with an asterisk (*) to indicate small sample size.</p>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th class="num">Year</th>
+                      <th class="num">Placement Records</th>
+                      <th class="num">Share of Selection</th>
+                      <th class="num">Reporting Colleges</th>
+                      <th class="num">Regions Active</th>
+                      <th class="num">Distinct Companies</th>
+                      <th class="num">Package Coverage</th>
+                      <th class="num">Median Package</th>
+                      <th class="num">Average Package</th>
+                    </tr>
+                  </thead>
+                  <tbody id="trendsYearlyTableBody"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+        </div>
+
+        <!-- SECTION 5: DATA QUALITY & METHODOLOGY -->
+        <section data-view-panel="quality" hidden aria-label="Data Quality and Methodology">
+          <div class="page-intro">
+            <div>
+              <h1>Data Quality, Pipeline Lineage &amp; Methodology</h1>
+              <p>Documentation of the end-to-end Python + pandas data engineering pipeline, field-level completeness audit, source reconciliation, and analytical limitations.</p>
+            </div>
+          </div>
+
+          <!-- Baseline Validation vs Observed Output -->
+          <article class="panel-card" style="margin-bottom: 20px;">
+            <div class="card-header-row">
+              <h2 class="card-title">Expected Baseline Targets vs Observed Pipeline Results</h2>
+              <span class="font-mono muted-inline" id="qualityBaselineSummaryBadge">Audited against canonical pipeline outputs</span>
+            </div>
+            <p class="card-subtitle">Automated reconciliation comparing documented validation targets against actual observed counts computed by <code>scripts/04_export_dashboard_data.py</code>. Any discrepancy is surfaced explicitly rather than overridden.</p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Validation Metric</th>
+                    <th class="num">Expected Baseline Target</th>
+                    <th class="num">Observed Computed Value</th>
+                    <th class="num">Delta</th>
+                    <th>Verification Status</th>
+                  </tr>
+                </thead>
+                <tbody id="qualityBaselineValidationBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Stage-by-Stage Data Cleaning Funnel -->
+          <article class="panel-card" style="margin-bottom: 20px;">
+            <div class="card-header-row">
+              <h2 class="card-title">Reproducible Data Cleaning &amp; Deduplication Funnel</h2>
+              <span class="font-mono muted-inline" id="qualityFunnelBadge">3,098 raw → 2,767 cleaned → 2,749 canonical records</span>
+            </div>
+            <p class="card-subtitle">Row counts and record retention across the four-step Python pipeline (<code>scripts/01_clean_data.py</code> through <code>scripts/04_export_dashboard_data.py</code>).</p>
+            <div class="funnel-list" id="qualityFunnelContainer"></div>
+          </article>
+
+          <!-- Field-Level Completeness Audit -->
+          <article class="panel-card" style="margin-bottom: 20px;">
+            <div class="card-header-row">
+              <h2 class="card-title">Canonical Dataset Field-Level Completeness Audit</h2>
+              <span class="font-mono muted-inline" id="qualityFieldAuditBadge">Audited on data/processed/placements_final.csv</span>
+            </div>
+            <p class="card-subtitle">Direct inspection of non-null vs missing values across all five canonical columns in the loaded dataset.</p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Canonical Column</th>
+                    <th class="num">Valid Non-Null Rows</th>
+                    <th class="num">Missing / Null Rows</th>
+                    <th class="num">Completeness %</th>
+                    <th>Audit &amp; Processing Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="qualityFieldAuditBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Raw Source Files Inventory -->
+          <article class="panel-card" style="margin-bottom: 20px;">
+            <div class="card-header-row">
+              <h2 class="card-title">Multi-File Source Reconciliation Inventory (7 Raw CSVs)</h2>
+            </div>
+            <p class="card-subtitle">Row counts, column schemas, and pipeline dispositions computed directly from the files in <code>data/raw/</code>.</p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Raw File Name</th>
+                    <th class="num">Observed Rows</th>
+                    <th>Observed Column Schema</th>
+                    <th>Pipeline Disposition</th>
+                    <th>Computed Audit Finding &amp; Rationale</th>
+                  </tr>
+                </thead>
+                <tbody id="qualityRawFilesBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Algorithmic & Rule-Based Company Standardization -->
+          <article class="panel-card" style="margin-bottom: 20px;">
+            <div class="card-header-row">
+              <h2 class="card-title">Company Name Standardization: Generated Proposals, Exclusion Rules &amp; Manual Fixes</h2>
+              <span class="font-mono muted-inline" id="qualityMergeSummaryBadge">1,986 raw names → 1,753 canonical entities</span>
+            </div>
+            <p class="card-subtitle" id="qualityMergeSubtitle">The mapping pipeline generates candidate merges in <code>02_propose_company_mapping.py</code> (Tier-1 suffix/punctuation normalization and Tier-2 fuzzy string similarity ≥ 0.92), then applies deterministic rules in <code>03_merge_company_names.py</code> using an explicit <code>RISKY</code> exclusion set and a <code>FIX</code> dictionary of manual typo corrections.</p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Raw Variant(s) Observed</th>
+                    <th>Canonical Output / Rule Action</th>
+                    <th>Pipeline Rule Type</th>
+                    <th>Technical Justification</th>
+                  </tr>
+                </thead>
+                <tbody id="qualityMergesBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Core Methodological Limitations -->
+          <article class="panel-card">
+            <div class="card-header-row">
+              <h2 class="card-title">Known Limitations &amp; Analytical Guardrails</h2>
+            </div>
+            <p class="card-subtitle">Explicit boundaries enforced throughout this dashboard to ensure honest reporting.</p>
+            <div class="obs-grid">
+              <div class="obs-item">
+                <div class="obs-label">1. Records ≠ Unique Students Placed</div>
+                <p class="obs-text">Each record represents a company recruiting at a given college in a given year. The dataset does not contain student roll numbers, hiring headcounts, or total eligible student populations.</p>
+              </div>
+              <div class="obs-item">
+                <div class="obs-label">2. Partial Salary Disclosure (14.51%)</div>
+                <p class="obs-text">Only 399 of 2,749 records include verified package values from <code>variation_3.csv</code>. Unreported packages are kept as missing (null) and never imputed or zero-filled.</p>
+              </div>
+              <div class="obs-item">
+                <div class="obs-label">3. No Branch / Department Column</div>
+                <p class="obs-text">The underlying source files do not record engineering branch (e.g., CSE, IT, ECE, Mechanical). All breakdowns are strictly limited to verified region, college, company, and year dimensions.</p>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- Workspace Footer -->
+        <footer class="workspace-footer">
+          <div>Campus Placement Intelligence — Mumbai &amp; Pune · Historical Demonstration Dataset (2014–2018)</div>
+          <div class="font-mono">Canonical source: data/processed/placements_final.csv (2,749 records)</div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/config.js"></script>
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
 </body>
 </html>

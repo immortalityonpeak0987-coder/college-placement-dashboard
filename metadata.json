@@ -1,6 +1,6 @@
 {
-  "name": "Campus Placement Analysis | Mumbai & Pune Colleges",
-  "description": "Data analysis project: cleaning and analysing engineering college placement data with Python and pandas, presented as an interactive dashboard.",
+  "name": "Campus Placement Intelligence — Mumbai & Pune",
+  "description": "Interactive data analytics dashboard examining 2,749 engineering college placement and recruiter records across Mumbai, Pune, Navi Mumbai, and Thane (2014–2018).",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
