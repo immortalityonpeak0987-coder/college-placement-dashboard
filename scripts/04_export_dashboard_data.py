@@ -25,5 +25,9 @@ data = {
   'companies': [{'name': nice(i), 'records': int(r.records), 'colleges': int(r.colleges)} for i, r in co.iterrows()],
   'years': [{'year': int(i), 'placements': int(r.placements), 'colleges': int(r.colleges)} for i, r in yr.iterrows()],
 }
-(ROOT / 'assets/data.js').write_text('window.DASHBOARD_DATA = ' + json.dumps(data, indent=1) + ';\n')
+content = 'window.DASHBOARD_DATA = ' + json.dumps(data, indent=1) + ';\n'
+for rel in ['assets/data.js', 'public/assets/data.js', 'placement_dashboard/assets/data.js']:
+    dest = ROOT / rel
+    if dest.parent.exists():
+        dest.write_text(content)
 print(json.dumps(data['kpis']), json.dumps(data['pipeline']))
