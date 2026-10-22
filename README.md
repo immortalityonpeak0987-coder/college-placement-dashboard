@@ -113,4 +113,4 @@ Then open [`index.html`](index.html) in a browser (internet needed for Chart.js 
 Python, pandas, matplotlib (preview only), HTML/CSS/JavaScript, Chart.js 4.4.1 (via cdnjs), Vercel.
 
 ## Author
-_Your name · [GitHub](https://github.com/) · [LinkedIn](https://www.linkedin.com/)_ (replace with your links in [`assets/config.js`](assets/config.js))
+_Jitesh · [GitHub](https://github.com/immortalityonpeak0987-coder/placement-dashboard) · [LinkedIn](www.linkedin.com/in/jitesh-hati-096500443)_ 
